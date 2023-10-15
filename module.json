@@ -1,0 +1,13 @@
+{
+  "id": "alchemist-import",
+  "title": "Alchemist Import",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "11",
+    "verified": "11"
+  },
+  "scripts": [
+    "scripts/main.js"
+  ],
+  "url": "https://github.com/thanacus/alchemist-import"
+}
