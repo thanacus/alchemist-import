@@ -1,5 +1,6 @@
 import { presentDialog } from './import-application.mjs'
 
+CONFIG.debug.hooks = true
 Hooks.once('ready', function() {   
     Hooks.on('renderSceneDirectory', (html, entryOptions) => {
         const button = document.createElement("button")
@@ -7,5 +8,25 @@ Hooks.once('ready', function() {
         button.addEventListener("click", presentDialog)
 
         $("#sidebar>.scenes-sidebar>.directory-header>.action-buttons").append(button)
+    })
+
+
+    game.settings.register('alchemist-import', 'import-location', {
+        name: "Image Import Location",
+        hint: "User directory to which maps will be uploaded",
+        scope: "world",
+        config: true,
+        type: String,
+        filePicker: 'folder',
+        default: "maps"
+    })
+
+    game.settings.register('alchemist-import', 'default-config', {
+        name: "Import Additions/Overrides",
+        hint: "JSON to be merged with the imported Dungeon Alchemist configuration. Allows customization of defaults on all imported maps",
+        scope: "world",
+        config: true,
+        type: String,
+        default: ""
     })
 })
