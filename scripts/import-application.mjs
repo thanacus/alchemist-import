@@ -18,7 +18,6 @@ const DEFAULT_SETTINGS = {
     "tokenVision": false,
     "fogExploration": false,
     "flags": {
-        "token-attacher": {},
         "LockView": {
             "editViewbox": false,
             "lockPan": false,
@@ -39,7 +38,7 @@ const DEFAULT_SETTINGS = {
 }
 
 String.prototype.toProperCase = function () {
-    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();});
 };
 
 class AlchemistImportDialog extends Dialog {
