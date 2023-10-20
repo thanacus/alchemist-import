@@ -23,8 +23,6 @@ No configuration yet, but targeting the following configuration options in futur
         "units": "ft"
     },
     "initial": {
-        "x": 5550,
-        "y": 4050,
         "scale": 0.45
     },
     "tokenVision": false,
