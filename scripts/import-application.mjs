@@ -16,25 +16,7 @@ const DEFAULT_SETTINGS = {
         "scale": 0.45
     },
     "tokenVision": false,
-    "fogExploration": false,
-    "flags": {
-        "LockView": {
-            "editViewbox": false,
-            "lockPan": false,
-            "lockPanInit": false,
-            "lockZoom": false,
-            "lockZoomInit": false,
-            "boundingBox": false,
-            "boundingBoxInit": false,
-            "autoScale": "0",
-            "rotation": "0",
-            "sidebar": "noChange",
-            "blackenSidebar": false,
-            "excludeSidebar": false,
-            "hideUI": false,
-            "forceInit": true
-        }
-    }
+    "fogExploration": false
 }
 
 String.prototype.toProperCase = function () {
