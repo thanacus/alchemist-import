@@ -1,6 +1,5 @@
 import { presentDialog } from './import-application.mjs'
 
-CONFIG.debug.hooks = true
 Hooks.once('ready', function() {   
     Hooks.on('renderSceneDirectory', (html, entryOptions) => {
         const button = document.createElement("button")
