@@ -9,5 +9,7 @@
   "esmodules": [
     "scripts/alchemist-import.mjs"
   ],
-  "url": "https://github.com/thanacus/alchemist-import"
+  "url": "https://github.com/thanacus/alchemist-import",
+  "manifest": "https://raw.githubusercontent.com/thanacus/alchemist-import/v1.0.0/module.json",
+  "download": "https://github.com/thanacus/alchemist-import/archive/refs/tags/v1.0.0.zip"
 }
