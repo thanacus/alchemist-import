@@ -6,8 +6,8 @@
     "minimum": "11",
     "verified": "11"
   },
-  "scripts": [
-    "scripts/main.js"
+  "esmodules": [
+    "scripts/alchemist-import.mjs"
   ],
   "url": "https://github.com/thanacus/alchemist-import"
 }
