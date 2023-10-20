@@ -1,4 +1,5 @@
 const IMPORT_LOCATION = "maps/"
+const AUTO_CENTER_MAP = true
 const DEFAULT_SETTINGS = {
     "backgroundColor": "#000000",
     "grid": {
@@ -51,15 +52,16 @@ class AlchemistImportDialog extends Dialog {
                 }
             </style>
             <div class="alchemist-import-dialog">
-                <label style="width: 200px">DA Image:</label>
-                <input id="alchemist-import-image-file-import" type="file" accept=".jpg,.png"/>
-                <label style="width: 200px">DA JSON:</label>
-                <input id="alchemist-import-json-file-import" type="file" accept=".json"/>
+                <label style="width: 200px">Select DA Image and JSON:</label>
+                <input id="alchemist-import-files" type="file" accept=".jpg,.json" multiple/>
             </div>
         `
         
         const callback = async (html) => {
-            this.handleDaImport(html)
+            const result = this.handleDaImport(html)
+            if(!result) {
+                console.error("Unable to import DA objects...")
+            }
         }
 
         dialogOptions = {
@@ -81,28 +83,56 @@ class AlchemistImportDialog extends Dialog {
 
     async parseJsonFile(file) {
         return new Promise((resolve, reject) => {
-            const fileReader = new FileReader()
-            fileReader.onload = event => resolve(JSON.parse(event.target.result))
-            fileReader.onerror = error => reject(error)
-            fileReader.readAsText(file)
+            try {
+                const fileReader = new FileReader()
+                fileReader.onload = event => resolve(JSON.parse(event.target.result))
+                fileReader.onerror = error => reject(error)
+                fileReader.readAsText(file)
+            } catch(error) {
+                ui.notifications.error(`Error opening DA JSON: ${error}`)
+                reject(error)
+            }
         })
     }
       
     async handleDaImport(html) {
-        const image = html.find('input#alchemist-import-image-file-import').prop('files')[0];
-        const json = html.find('#alchemist-import-json-file-import').prop('files')[0];
+        const files = html.find('input#alchemist-import-files').prop('files')
+        let image = undefined
+        let json = undefined
+
+        // File checks
+        if(files.length != 2) {
+            ui.notifications.error(`Expected only two files (one .jpg, one .json), got ${files.length}`)
+            return
+        }
+
+        // Obtain the files
+        if(files[0].name?.endsWith("jpg")) {
+            image = files[0]
+            json = files[1]
+        } else {
+            image = files[1]
+            json = files[0]
+        }
+
+        // Load both data objects
         const object = await this.parseJsonFile(json)
+        await FilePicker.upload("data", IMPORT_LOCATION, image)
         
+        // Merge and update scene information
         $.extend(true, object, DEFAULT_SETTINGS)
-
         object.name = object.name.replaceAll("-", " ").toProperCase()
-        let scene = game.scenes.get(this.sceneId)
-
         object.background = object.background || {}
         object.background.src = IMPORT_LOCATION + image.name
 
-        await FilePicker.upload("data", IMPORT_LOCATION, image)
-        await scene.update(object)
+        if(AUTO_CENTER_MAP) {
+            object.initial = object.initial || {}
+            object.initial.x = Math.round(object.width / 2)
+            object.initial.y = Math.round(object.height / 2)
+        }
+
+        const scene = Scene.create(object)
+
         scene.createThumbnail().then(t => {
             scene.update({thumb: t.thumb})
         })
