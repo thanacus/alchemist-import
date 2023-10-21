@@ -12,8 +12,8 @@ class AlchemistImportDialog extends Dialog {
                 }
             </style>
             <div class="alchemist-import-dialog">
-                <label style="width: 200px">Select DA Image and JSON:</label>
-                <input id="alchemist-import-files" type="file" accept=".jpg,.json" multiple/>
+                <label style="width: 200px">Select DA Image/Vid and JSON:</label>
+                <input id="alchemist-import-files" type="file" accept=".jpg,.json,.mp4,.webm" multiple/>
             </div>
         `
         
@@ -70,33 +70,33 @@ class AlchemistImportDialog extends Dialog {
             }
             
             const files = html.find('input#alchemist-import-files').prop('files')
-            let image = undefined
+            let map = undefined
             let json = undefined
 
             // File checks
             if(files.length != 2) {
-                ui.notifications.error(`Expected only two files (one .jpg, one .json), got ${files.length}`)
+                ui.notifications.error(`Expected only two files (one image/vid file, one .json), got ${files.length}`)
                 return
             }
 
             // Obtain the files
-            if(files[0].name?.endsWith("jpg")) {
-                image = files[0]
+            if(files[1].name?.endsWith("json")) {
+                map = files[0]
                 json = files[1]
             } else {
-                image = files[1]
+                map = files[1]
                 json = files[0]
             }
 
             // Load both data objects
             const object = await this.parseJsonFile(json)
-            await FilePicker.upload("data", importLocation, image)
+            await FilePicker.upload("data", importLocation, map)
             
             // Merge and update scene information
             $.extend(true, object, defaultConfig)
             object.name = object.name.replaceAll("-", " ").toProperCase()
             object.background = object.background || {}
-            object.background.src = `${importLocation}/${image.name}`
+            object.background.src = `${importLocation}/${map.name}`
 
             Scene.create(object)
         } catch(error) {
