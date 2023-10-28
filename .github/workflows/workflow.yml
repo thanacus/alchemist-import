@@ -17,7 +17,7 @@ jobs:
       run: echo "::set-output name=version::$(node ./.github/workflows/get-version.js)"
     - run: zip -r ./alchemist-import.zip module.json scripts/ README.md
     - name: Create Release                                # Create an additional release for this version
-      id: create_versioned_release
+      id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -27,3 +27,21 @@ jobs:
         draft: false
         prerelease: false
         artifacts: './module.json,./alchemist-import.zip'
+    - name: Upload Module
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./module.json
+        asset_name: module.json
+        asset_content_type: application/json
+    - name: Upload Zip
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./alchemist-import.zip
+        asset_name: alchemist-import.zip
+        asset_content_type: application/zip
