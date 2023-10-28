@@ -10,6 +10,6 @@
     "scripts/alchemist-import.mjs"
   ],
   "url": "https://github.com/thanacus/alchemist-import",
-  "manifest": "https://raw.githubusercontent.com/thanacus/alchemist-import/v1.0.5/module.json",
-  "download": "https://github.com/thanacus/alchemist-import/archive/refs/tags/v1.0.5.zip"
+  "manifest": "https://github.com/thanacus/alchemist-import/releases/download/v1.0.5/module.json",
+  "download": "https://github.com/thanacus/alchemist-import/releases/download/v1.0.5/alchemist-import.zip"
 }
