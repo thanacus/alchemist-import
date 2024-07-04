@@ -1,10 +1,10 @@
 {
   "id": "alchemist-import",
   "title": "Alchemist Import",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "compatibility": {
     "minimum": "11",
-    "verified": "11"
+    "verified": "12"
   },
   "esmodules": [
     "scripts/alchemist-import.mjs"
