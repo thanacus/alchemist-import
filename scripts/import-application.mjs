@@ -91,6 +91,23 @@ class AlchemistImportDialog extends Dialog {
             // Load both data objects
             const object = await this.parseJsonFile(json)
             await FilePicker.upload("data", importLocation, map)
+
+            // Temp fix until DA exports properly for V12
+            if(game.release.generation === 12) {
+                console.log("As of this plugin's writing, DA direct exports need updating!");
+                object.walls.forEach((w) => {
+                    if(w.move === 1) {
+                        w.move = 20;
+                    }
+                    if(w.sense === 1) {
+                        w.light = 20;
+                        w.sight = 20;
+                    }
+                    if(w.sound === 1) {
+                        w.sound = 20;
+                    }
+                });
+            }
             
             // Merge and update scene information
             $.extend(true, object, defaultConfig)
