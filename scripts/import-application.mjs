@@ -107,6 +107,26 @@ class AlchemistImportDialog extends Dialog {
                         w.sound = 20;
                     }
                 });
+
+                object.lights.forEach((l) => {
+                    l.config = l.config || {};
+                    if(l.tintColor) {
+                        l.config.color = l.tintColor;
+                    }
+                    if(l.tintAlpha) {
+                        l.config.alpha = l.tintAlpha;
+                    } else if(l.tintAlpha === 0 && l.tintColor) {
+                        l.config.alpha = 0.15
+                    }
+                    if(l.dim) {
+                        l.config.dim = l.dim;
+                    }
+                    if(l.bright) {
+                        l.config.bright = l.bright;
+                    }
+                    console.log("Light:")
+                    console.log(l)
+                });
             }
             
             // Merge and update scene information
