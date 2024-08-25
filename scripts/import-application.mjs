@@ -124,8 +124,6 @@ class AlchemistImportDialog extends Dialog {
                     if(l.bright) {
                         l.config.bright = l.bright;
                     }
-                    console.log("Light:")
-                    console.log(l)
                 });
             }
             
