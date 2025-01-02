@@ -96,16 +96,36 @@ class AlchemistImportDialog extends Dialog {
             if(game.release.generation === 12) {
                 console.log("As of this plugin's writing, DA direct exports need updating!");
                 object.walls.forEach((w) => {
-                    if(w.move === 1) {
-                        w.move = 20;
-                    }
-                    if(w.sense === 1) {
+                    if(w.move === 1 && w.sense === 1 && w.sound === 1) {
+                        // Door or wall
                         w.light = 20;
                         w.sight = 20;
-                    }
-                    if(w.sound === 1) {
                         w.sound = 20;
+                        w.move = 20;
+                    } else if(w.move === 1 && w.sense === 0 && w.sound === 1) {
+                        // Window
+                        w.light = 30;
+                        w.sight = 30;
+                        w.sound = 20;
+                        w.move = 20;
+                        w.threshold = {};
+                        w.threshold.light = 10;
+                        w.threshold.sight = 10;
+                        w.threshold.attenuation = true;
+                    } else {
+                        // Unknown, direct translate
+                        if(w.move === 1) { w.move = 20 }
+                        if(w.sense === 1) { w.light = 20; w.sight = 20; }
+                        if(w.sound === 1) { w.sound = 20 }
                     }
+
+                    // Fix any zero-length segments
+                    if(w.c.length === 4) {
+                        if(w.c[0] === w.c[2] && w.c[1] === w.c[3]) {
+                            w.c[0] = w.c[0]+1;
+                        }
+                    }
+
                 });
 
                 object.lights.forEach((l) => {
