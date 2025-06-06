@@ -93,7 +93,7 @@ class AlchemistImportDialog extends Dialog {
             await FilePicker.upload("data", importLocation, map)
 
             // Temp fix until DA exports properly for V12
-            if(game.release.generation === 12) {
+            if(game.release.generation >= 12) {
                 console.log("As of this plugin's writing, DA direct exports need updating!");
                 object.walls.forEach((w) => {
                     if(w.move === 1 && w.sense === 1 && w.sound === 1) {
