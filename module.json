@@ -1,7 +1,7 @@
 {
   "id": "alchemist-import",
   "title": "Alchemist Import",
-  "version": "1.13.0",
+  "version": "1.13.1",
   "compatibility": {
     "minimum": "13",
     "verified": "13"
@@ -10,6 +10,6 @@
     "scripts/alchemist-import.mjs"
   ],
   "url": "https://github.com/thanacus/alchemist-import",
-  "manifest": "https://github.com/thanacus/alchemist-import/releases/download/v1.13.0/module.json",
-  "download": "https://github.com/thanacus/alchemist-import/releases/download/v1.13.0/alchemist-import.zip"
+  "manifest": "https://github.com/thanacus/alchemist-import/releases/download/v1.13.1/module.json",
+  "download": "https://github.com/thanacus/alchemist-import/releases/download/v1.13.1/alchemist-import.zip"
 }
