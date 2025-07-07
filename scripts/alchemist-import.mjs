@@ -1,12 +1,17 @@
 import { presentDialog } from './import-application.mjs'
 
+var render_complete = false;
+
 Hooks.once('ready', function() {   
     Hooks.on('activateSceneDirectory', (html, entryOptions) => {
         const button = document.createElement("button")
         button.innerHTML = "<i class='fas fa-flask'></i>Import DA"
         button.addEventListener("click", presentDialog)
 
-        $('#sidebar>#sidebar-content>#scenes .directory-footer.action-buttons').append(button)
+        if(!render_complete) {
+            $('#sidebar>#sidebar-content>#scenes .directory-footer.action-buttons').append(button)
+            render_complete = true
+        }
     })
 
 
